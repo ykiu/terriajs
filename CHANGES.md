@@ -5,6 +5,7 @@ Change Log
 
 #### next release (8.0.0-alpha.66)
 * Moved `DataCustodianTraits` into `CatalogMemberTraits` and `CatalogMemberReferenceTraits`.
+* Clean up `LayerOrderingTraits`, remove `WorkbenchItem` interface, fix `keepOnTop` layer insert/re-ordering.
 * Allow nullable `timeColumn` in table styles. Useful for turning off auto-detection of time columns.
 * Added tool for searching inside catalog items. Initial implementation works for indexed 3d tilesets.
 * Added support for shapefile with `ShapefileCatalogItem`
