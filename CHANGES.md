@@ -18,6 +18,7 @@ Change Log
 * CustomChartComponent now has a "chart-type" attribute
 * Added `AttributionTraits` to mappable and send it as property when creating Cesium's data sources and imagery providers. [#5167](https://github.com/TerriaJS/terriajs/pull/5167) 
 * `TableMixin` styles ("Display variables") will now look for column title if style title is undefined
+* Fix `ArcGisMapServerCatalogItem` layer ID and legends bug
 * [The next improvement]
 
 #### 8.0.0-alpha.65
