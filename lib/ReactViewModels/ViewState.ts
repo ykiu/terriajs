@@ -721,10 +721,11 @@ export default class ViewState {
 interface Tool {
   toolName: string;
   getToolComponent: () =>
-    | React.Component
-    | Promise<React.Component>
+    | React.ComponentType
+    | Promise<React.ComponentType>
     | React.ReactNode
     | Promise<React.ReactNode>;
+
   showCloseButton: boolean;
   params?: any;
 }
