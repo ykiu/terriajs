@@ -22,9 +22,8 @@ module.exports = function(hot, dev) {
             filename: 'TerriaJS-specs.js',
             publicPath: 'build/'
         },
-        // devtool: 'source-map',
         // Use eval cheap module source map for quicker incremental tests
-        devtool: dev ? 'eval-cheap-module-source-map' : 'source-map',
+        devtool: dev ? process.env.TERRIA_DEV_SOURCEMAP || 'source-map' : 'source-map',
         module: {
             rules: [
                 {

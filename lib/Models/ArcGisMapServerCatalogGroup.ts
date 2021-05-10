@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { action, computed, runInAction } from "mobx";
+import { action, computed, runInAction, trace } from "mobx";
 import URI from "urijs";
 import filterOutUndefined from "../Core/filterOutUndefined";
 import isDefined from "../Core/isDefined";
@@ -285,6 +285,7 @@ export default class ArcGisMapServerCatalogGroup extends UrlMixin(
   }
 
   protected forceLoadMetadata(): Promise<void> {
+    trace(!!(window as any).activateBreakpoint);
     return MapServerStratum.load(this).then(stratum => {
       runInAction(() => {
         this.strata.set(MapServerStratum.stratumName, stratum);
