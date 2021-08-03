@@ -25,6 +25,7 @@ const MyLocation = createReactClass({
 
   propTypes: {
     terria: PropTypes.object.isRequired,
+    viewState: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
   },
 
@@ -184,13 +185,14 @@ const MyLocation = createReactClass({
   },
 
   render() {
-    const { t } = this.props;
+    const { t, viewState } = this.props;
     return (
       <MapIconButton
         primary={this.followMeEnabled()}
         expandInPlace
         onClick={this.handleClick}
         title={t("location.centreMap")}
+        viewState={viewState}
         iconElement={() => <Icon glyph={Icon.GLYPHS.geolocationThick} />}
       >
         {t("location.location")}

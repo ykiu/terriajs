@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import Box from "../../Styled/Box";
+import ViewState from "../../ReactViewModels/ViewState";
 import { RawButton } from "../../Styled/Button";
 import { TextSpan } from "../../Styled/Text";
 
@@ -99,6 +100,7 @@ interface IMapIconButtonProps extends IStyledMapIconButtonProps {
   closeIconElement?: () => JSX.Element;
   onClick?: () => void;
   children?: React.ReactNode;
+  viewState?: ViewState;
   className?: string;
   buttonRef?: React.RefObject<any>;
 }
@@ -107,6 +109,7 @@ function MapIconButton(props: IMapIconButtonProps) {
   const [isExpanded, setExpanded] = useState(false);
   const {
     children,
+    viewState,
     roundLeft,
     roundRight,
     title,
@@ -118,6 +121,9 @@ function MapIconButton(props: IMapIconButtonProps) {
     disabled
   } = props;
   const expanded = (isExpanded || neverCollapse) && children;
+  const useSmallScreenInterface = viewState
+    ? viewState.useSmallScreenInterface
+    : false;
   const buttonRef = props.buttonRef || useRef();
 
   // const handleAway = () => setTimeout(() => setExpanded(false), 1000);
@@ -162,7 +168,7 @@ function MapIconButton(props: IMapIconButtonProps) {
             {props.closeIconElement()}
           </span>
         )}
-        {children && (
+        {children && !useSmallScreenInterface && (
           <TextSpan
             noWrap
             medium

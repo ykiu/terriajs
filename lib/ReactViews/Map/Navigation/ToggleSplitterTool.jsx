@@ -26,6 +26,7 @@ const ToggleSplitterTool = observer(function(props) {
         buttonRef={splitterIconRef}
         splitter={terria.showSplitter}
         expandInPlace
+        viewState={viewState}
         title={
           isDiffMode
             ? t("splitterTool.toggleSplitterToolDisabled")

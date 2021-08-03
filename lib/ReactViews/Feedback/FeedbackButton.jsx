@@ -27,11 +27,12 @@ const FeedbackButton = observer(
     },
 
     render() {
-      const { t } = this.props;
+      const { t, viewState } = this.props;
       return (
         <MapIconButton
           expandInPlace
           iconElement={() => <Icon glyph={Icon.GLYPHS.feedback} />}
+          viewState={viewState}
           onClick={this.onClick}
         >
           {t("feedback.feedbackBtnText")}

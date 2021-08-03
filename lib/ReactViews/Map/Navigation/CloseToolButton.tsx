@@ -27,6 +27,7 @@ function CloseToolButton({ viewState, t, toolIsDifference }: PropsType) {
       splitter={toolIsDifference}
       expandInPlace
       iconElement={() => <Icon glyph={Icon.GLYPHS.closeLight} />}
+      viewState={viewState}
       onClick={() => viewState.closeTool()}
     >
       {closeText}
