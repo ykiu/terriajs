@@ -68,6 +68,7 @@ Change Log
 * Disabled welcome popup for shared stories
 * Add WMS support for default value of time dimension.
 * Allow translation of some components.
+* featureInfoTemplate now works for composite models as well.
 * [The next improvement]
 
 #### 8.0.0-alpha.87
