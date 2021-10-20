@@ -3,6 +3,7 @@ Change Log
 
 #### next release (8.1.5)
 
+* `mapItems` is now allowed to return arbitrary Cesium primitives.
 * [The next improvement]
 
 #### 8.1.4
