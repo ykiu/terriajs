@@ -198,14 +198,13 @@ export default class CzmlCatalogItem
     return () => {};
   }
   zoomToItemSearchResult = action(async (result: ItemSearchResult) => {
-    if (this.terria.cesium === undefined) return;
-
-    const scene = this.terria.cesium.scene;
+    const cesium = this.terria.cesium;
+    if (cesium === undefined) return;
+    const scene = cesium.scene;
     const camera = scene.camera;
 
     const { latitudeDegrees, longitudeDegrees, featureHeight } =
       result.featureCoordinate;
-
     const cartographic = Cartographic.fromDegrees(
       longitudeDegrees,
       latitudeDegrees
@@ -217,6 +216,7 @@ export default class CzmlCatalogItem
     const center = Cartographic.toCartesian(terrainCartographic);
     const bs = new BoundingSphere(center, featureHeight * 2);
     camera.flyToBoundingSphere(bs);
+    cesium.notifyRepaintRequired();
   });
 }
 
