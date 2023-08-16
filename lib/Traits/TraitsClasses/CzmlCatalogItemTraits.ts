@@ -6,6 +6,7 @@ import AutoRefreshingTraits from "./AutoRefreshingTraits";
 import CatalogMemberTraits from "./CatalogMemberTraits";
 import LegendOwnerTraits from "./LegendOwnerTraits";
 import MappableTraits from "./MappableTraits";
+import SearchableItemTraits from "./SearchableItemTraits";
 import TimeVaryingTraits from "./TimeVaryingTraits";
 import UrlTraits from "./UrlTraits";
 
@@ -15,7 +16,8 @@ export default class CzmlCatalogItemTraits extends mixTraits(
   UrlTraits,
   CatalogMemberTraits,
   LegendOwnerTraits,
-  MappableTraits
+  MappableTraits,
+  SearchableItemTraits
 ) {
   @anyTrait({
     name: "CZML Data",

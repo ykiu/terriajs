@@ -19,6 +19,11 @@ import StratumOrder from "../../Definition/StratumOrder";
 import HasLocalData from "../../HasLocalData";
 import { ModelConstructorParameters } from "../../Definition/Model";
 import proxyCatalogItemUrl from "../proxyCatalogItemUrl";
+import SearchableItemMixin from "../../../ModelMixins/SearchableItemMixin";
+import { ItemSearchResult } from "../../ItemSearchProviders/ItemSearchProvider";
+import Cartographic from "terriajs-cesium/Source/Core/Cartographic";
+import BoundingSphere from "terriajs-cesium/Source/Core/BoundingSphere";
+import sampleTerrainMostDetailed from "terriajs-cesium/Source/Core/sampleTerrainMostDetailed";
 
 /**
  * A loadable stratum for CzmlCatalogItemTraits that derives TimeVaryingTraits
@@ -69,8 +74,10 @@ StratumOrder.addLoadStratum(CzmlTimeVaryingStratum.stratumName);
 
 export default class CzmlCatalogItem
   extends AutoRefreshingMixin(
-    MappableMixin(
-      UrlMixin(CatalogMemberMixin(CreateModel(CzmlCatalogItemTraits)))
+    SearchableItemMixin(
+      MappableMixin(
+        UrlMixin(CatalogMemberMixin(CreateModel(CzmlCatalogItemTraits)))
+      )
     )
   )
   implements TimeVarying, HasLocalData
@@ -181,6 +188,36 @@ export default class CzmlCatalogItem
     const url = proxyCatalogItemUrl(this, this.url, this.cacheDuration);
     this._dataSource?.process(url);
   }
+
+  highlightFeaturesFromItemSearchResults(results: ItemSearchResult[]) {
+    // noop for now
+    return () => {};
+  }
+  hideFeaturesNotInItemSearchResults(results: ItemSearchResult[]) {
+    // noop for now
+    return () => {};
+  }
+  zoomToItemSearchResult = action(async (result: ItemSearchResult) => {
+    if (this.terria.cesium === undefined) return;
+
+    const scene = this.terria.cesium.scene;
+    const camera = scene.camera;
+
+    const { latitudeDegrees, longitudeDegrees, featureHeight } =
+      result.featureCoordinate;
+
+    const cartographic = Cartographic.fromDegrees(
+      longitudeDegrees,
+      latitudeDegrees
+    );
+    const [terrainCartographic] = await sampleTerrainMostDetailed(
+      scene.terrainProvider,
+      [cartographic]
+    ).catch(() => [cartographic]);
+    const center = Cartographic.toCartesian(terrainCartographic);
+    const bs = new BoundingSphere(center, featureHeight * 2);
+    camera.flyToBoundingSphere(bs);
+  });
 }
 
 function toJulianDate(time: string | undefined | null): JulianDate | undefined {
