@@ -448,7 +448,6 @@ describe("CatalogGroup", function () {
             id: "parent1",
             name: "Parent 1",
             members: [
-              { type: "wms", id: "wms-1", name: "wms definition name" },
               {
                 type: "geojson",
                 id: "geojson-1",
@@ -494,6 +493,13 @@ describe("CatalogGroup", function () {
 
       expect(geojsonItem.name).toBe("some other name");
       expect(geojsonItem.url).toBe("some geojson url (by ID)");
+
+      // Ensure traits are applied to the items added on the fly.
+      upsertModelFromJson(CatalogMemberFactory, terria, "", "definition", {
+        type: "group",
+        id: "parent1",
+        members: [{ type: "wms", id: "wms-1", name: "wms definition name" }]
+      });
 
       const wmsItem = terria.getModelById(
         WebMapServiceCatalogItem,
